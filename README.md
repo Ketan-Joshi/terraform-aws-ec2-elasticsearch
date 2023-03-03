@@ -41,9 +41,9 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [aws_instance.visulization](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/instance) | resource |
+| [aws_instance.elasticsearch](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/instance) | resource |
 | [aws_key_pair.ssh_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/key_pair) | resource |
-| [aws_security_group.visulization_sg](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
+| [aws_security_group.elasticsearch_sg](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
 | [tls_private_key.ssh_private_key](https://registry.terraform.io/providers/hashicorp/tls/latest/docs/resources/private_key) | resource |
 | [template_file.userdata](https://registry.terraform.io/providers/hashicorp/template/latest/docs/data-sources/file) | data source |
 
@@ -51,14 +51,13 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_elasticsearch_endpoint"></a> [elasticsearch\_endpoint](#input\_elasticsearch\_endpoint) | This defines Elasticsearch Endpoint so that Kibana can connect with it | `string` | `""` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | This defines the Environment Tag | `string` | `""` | no |
-| <a name="input_instance_type_visulization"></a> [instance\_type\_visulization](#input\_instance\_type\_visulization) | This defines Visulization (Grafana + Kibana) Instance Size/Type | `string` | `""` | no |
+| <a name="input_instance_type_elasticsearch"></a> [instance\_type\_elasticsearch](#input\_instance\_type\_elasticsearch) | This defines elasticsearch Instance Size/Type | `string` | `""` | no |
 | <a name="input_pem_key_name"></a> [pem\_key\_name](#input\_pem\_key\_name) | This defines Pem Key Name | `string` | `""` | no |
-| <a name="input_subnet_id"></a> [subnet\_id](#input\_subnet\_id) | This defines Visulization (Grafana + Kibana) Instance VPC Subnet ID | `string` | `""` | no |
-| <a name="input_volume_size_visulization"></a> [volume\_size\_visulization](#input\_volume\_size\_visulization) | This defines Visulization (Grafana + Kibana) Instance Root Volume Size | `number` | `"30"` | no |
-| <a name="input_vpc_cidr_block"></a> [vpc\_cidr\_block](#input\_vpc\_cidr\_block) | This defines Visulization (Grafana + Kibana) Instance VPC CIDR Block | `string` | `""` | no |
-| <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | This defines Visulization (Grafana + Kibana) Instance VPC ID | `string` | `""` | no |
+| <a name="input_subnet_id"></a> [subnet\_id](#input\_subnet\_id) | This defines elasticsearch Instance VPC Subnet ID | `string` | `""` | no |
+| <a name="input_volume_size_elasticsearch"></a> [volume\_size\_elasticsearch](#input\_volume\_size\_elasticsearch) | This defines elasticsearch Instance Root Volume Size | `number` | `"30"` | no |
+| <a name="input_vpc_cidr_block"></a> [vpc\_cidr\_block](#input\_vpc\_cidr\_block) | This defines elasticsearch Instance VPC CIDR Block | `string` | `""` | no |
+| <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | This defines elasticsearch Instance VPC ID | `string` | `""` | no |
 
 ## Outputs
 <!-- END_TF_DOCS -->
