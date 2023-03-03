@@ -13,11 +13,6 @@ variable "pem_key_name" {
     type        = string
     default     = ""
 }
-variable "environment" {
-    description = "This defines the Environment Tag"
-    type        = string
-    default     = ""
-}
 variable "vpc_id" {
     description = "This defines elasticsearch Instance VPC ID"
     type        = string

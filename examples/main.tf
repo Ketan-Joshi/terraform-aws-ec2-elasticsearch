@@ -3,7 +3,6 @@ module "prometheus" {
     instance_type_elasticsearch = "t3.medium"
     volume_size_elasticsearch = "30"
     pem_key_name = "elasticsearch"
-    environment = "qa"
     vpc_cidr_block = ""
     vpc_id = ""
     subnet_id = ""

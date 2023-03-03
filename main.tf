@@ -29,11 +29,11 @@ resource "aws_instance" "elasticsearch" {
     aws_key_pair.ssh_key
   ]
   tags = {
-    Name = "nw-social-elasticsearch-${var.environment}"
+    Name = "nw-social-elasticsearch"
   }
 }
 resource "aws_security_group" "elasticsearch_sg" {
-  name = "nw-social-elasticsearch-${var.environment}-sg"
+  name = "nw-social-elasticsearch-sg"
   vpc_id =  var.vpc_id
   ingress {
     description = "ingress rules"
@@ -64,6 +64,6 @@ resource "aws_security_group" "elasticsearch_sg" {
     to_port = 0
   }
   tags = {
-    Name = "nw-social-elasticsearch-${var.environment}-sg"
+    Name = "nw-social-elasticsearch-sg"
   }
 }
