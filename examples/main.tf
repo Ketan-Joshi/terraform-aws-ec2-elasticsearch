@@ -1,4 +1,4 @@
-module "prometheus" {
+module "elasticsearch" {
     source = "../"
     instance_type_elasticsearch = "t3.large"
     volume_size_elasticsearch = "50"
