@@ -19,6 +19,7 @@ resource "aws_instance" "elasticsearch" {
   key_name = var.pem_key_name
   subnet_id = var.subnet_id
   disable_api_termination = true
+  iam_instance_profile = aws_iam_instance_profile.ssm_access_instance_profile.name
   vpc_security_group_ids = [aws_security_group.elasticsearch_sg.id]
   # associate_public_ip_address = true
   ebs_block_device {
@@ -66,4 +67,31 @@ resource "aws_security_group" "elasticsearch_sg" {
   tags = {
     Name = "nw-social-elasticsearch-sg"
   }
+}
+resource "aws_iam_role" "ssm_access" {
+  name = "elasticsearch-ssm-access-role-${var.environment}"
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+    {
+      Action = "sts:AssumeRole"
+      Effect = "Allow"
+      Principal = {
+        Service = "ec2.amazonaws.com"
+      }
+    }
+   ]
+  })
+}
+resource "aws_iam_role_policy_attachment" "ssm_policy" {
+  policy_arn = "arn:aws:iam::aws:policy/AmazonSSMFullAccess"
+  role = aws_iam_role.ssm_access.name
+}
+resource "aws_iam_role_policy_attachment" "cw_agent_policy" {
+  policy_arn = "arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy"
+  role = aws_iam_role.ssm_access.name
+}
+resource "aws_iam_instance_profile" "ssm_access_instance_profile" {
+  name = "monitoring-ssm-access-instance-profile-${var.environment}"
+  role = aws_iam_role.ssm_access.name
 }

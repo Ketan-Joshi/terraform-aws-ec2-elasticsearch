@@ -10,6 +10,50 @@ sudo systemctl enable amazon-ssm-agent
 sudo systemctl start amazon-ssm-agent
 yum update -y
 
+#################################
+## for installing the CW-agent ##
+#################################
+cd /opt && wget https://s3.amazonaws.com/amazoncloudwatch-agent/amazon_linux/amd64/latest/amazon-cloudwatch-agent.rpm && rpm -U ./amazon-cloudwatch-agent.rpm
+
+cat <<EOF >>/opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent.json
+{
+        "agent": {
+                "metrics_collection_interval": 60,
+                "run_as_user": "cwagent"
+        },
+        "metrics": {
+                "append_dimensions": {
+                        "ImageId": "$${aws:ImageId}",
+                        "InstanceId": "$${aws:InstanceId}",
+                        "InstanceType": "$${aws:InstanceType}"
+                },
+                "metrics_collected": {
+                        "disk": {
+                                "measurement": [
+                                        "used_percent"
+                                ],
+                                "metrics_collection_interval": 60,
+                                "resources": [
+                                        "*"
+                                ]
+                        },
+                        "mem": {
+                                "measurement": [
+                                        "mem_used_percent"
+                                ],
+                                "metrics_collection_interval": 60
+                        }
+                },
+                "aggregation_dimensions" : [ 
+                        ["InstanceId", "InstanceType"]
+                ]
+        }
+}
+EOF
+
+sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -s -c file:/opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent.json
+sudo systemctl restart amazon-cloudwatch-agent.service
+
 ################################################
 ## for installing the elastic-search (v7.17.8)##
 ################################################
